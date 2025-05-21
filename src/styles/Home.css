@@ -1,0 +1,10 @@
+.difficulty-section p {
+  font-size: 2rem;
+}
+
+.difficulty-section {
+  flex: 1;
+  display: flex;
+  gap: 3em;
+  justify-content: center;
+}
