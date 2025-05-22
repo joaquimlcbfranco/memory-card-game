@@ -2,7 +2,8 @@
 	font-family: "Pixelify Sans", "Helvetica", sans-serif;
 	text-align: center;
 	text-transform: uppercase;
-	background-color: rgba(255, 255, 255, 0.3);
+	background-color: rgba(255, 255, 255, 0.45);
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 	padding: 1em;
   color: rgb(242, 243, 244);
 }
