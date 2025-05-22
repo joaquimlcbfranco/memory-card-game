@@ -1,3 +1,9 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .difficulty-section p {
   font-size: 2rem;
 }
@@ -5,6 +11,68 @@
 .difficulty-section {
   flex: 1;
   display: flex;
+  flex-direction: column;
   gap: 3em;
   justify-content: center;
+  align-items: center;
+  background-color: rgba(105, 51, 130, 0.7);
+  margin: 10em;
+  border-radius: 5em;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+.difficulty-section .difficulty-selector {
+  display: flex;
+  gap: 3em;
+}
+
+.difficulty-selector span > div {
+  width: 250px;
+  height: 250px;
+  border: 2px solid;
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk-2t8L954ULNnYz1puzIHFtAodAZYuXTHwg&s);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 1.5em;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.difficulty-selector span {
+  transition: scale 200ms ease-in-out;
+}
+
+.difficulty-selector span:hover {
+  scale: 1.05;
+}
+
+.difficulty-selector span {
+  position: relative;
+}
+
+.difficulty-selector span > p {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-transform: uppercase;
+  text-shadow: 0px 0px 5px rgba(105, 51, 130, 0.7);
+}
+
+.start-button {
+  margin-top: 1em;
+  padding: 1.2em 0;
+  width: 12em;
+  border-radius: 1em;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
