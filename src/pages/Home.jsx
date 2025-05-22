@@ -1,14 +1,17 @@
 import Difficulty from "../components/Difficulty.jsx";
 import Header from "../components/Header.jsx";
-import { useState } from "react"
+import StartGame from "../components/StartGame.jsx";
 
-function Home() {
-  const [difficulty, setDifficulty] = useState("easy");
-
+function Home({ difficulty, setDifficulty}) {
 	return (
-		<div class="home-container">
+		<div className="home-container">
 			<Header />
-      <Difficulty setDifficulty={setDifficulty}/>
+			<div className="difficulty-section">
+        <div className="difficulty-selector">
+          <Difficulty difficulty={difficulty} setDifficulty={setDifficulty} />
+        </div>
+        <StartGame />
+			</div>
 		</div>
 	);
 }
