@@ -1,0 +1,43 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-container {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(auto-fit, 1fr);
+  height: 100%;
+  border: 1px solid red;
+  margin: 7em;
+  width: 80%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  height: 200px;
+  width: 175px;
+}
+
+.card[data-id="0"] {
+  background-color: teal;
+}
+
+@media (max-width: 600px) {
+  .card-container {
+    grid-template-columns: 1fr 1fr;
+    margin: 1em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .card {
+    height: 100px;
+    width: 75px;
+  }
+}
