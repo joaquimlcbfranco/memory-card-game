@@ -1,54 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
-
 .header-container {
+	font-family: "Pixelify Sans", "Helvetica", sans-serif;
 	text-align: center;
-	font-family: "Nunito", "Montserrat", sans-serif;
 	text-transform: uppercase;
-	background-color: rgb(33, 155, 157);
+	background-color: rgba(255, 255, 255, 0.3);
 	padding: 1em;
   color: rgb(242, 243, 244);
 }
 
-svg {
-  fill: rgb(242, 243, 244);
-}
-
-.header-container span {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 8px;
-	font-size: 2rem;
+.header-container .header-title {
+	font-size: 3rem;
 	cursor: pointer;
+	text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.5);
 }
 
-svg, span, li {
-  transition: color 200ms ease-in-out, fill 200ms ease-in-out;
+.header-title span {
+	color: red;
 }
 
-.header-container span:hover {
-	color: rgb(220, 220, 220);
-}
-.header-container span:hover > svg {
-	fill: rgb(220, 220, 220);
+.header-container .header-description {
+	font-size: 1.1rem;
+	text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.5);
 }
 
-.header-container span > svg {
-	height: 40px;
-	padding-bottom: 2px;
-	width: auto;
-}
-
-ul {
-	list-style: none;
-	text-align: center;
-	font-size: 1.5rem;
-}
-
-ul > li:hover {
-	color: rgb(220, 220, 220);
-  cursor: pointer;
-}
-
-.header-dropdown {
-}
