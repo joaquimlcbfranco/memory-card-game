@@ -1,10 +1,13 @@
+import { useState } from "react"
 import Home from "./pages/Home.jsx";
+import Game from "./pages/Game.jsx";
 
 function App() {
+  const [difficulty, setDifficulty] = useState("easy");
 	return (
 		<>
-			<div class="background"></div>
-			<Home />
+			<div className="background"></div>
+			<Game difficulty={difficulty} setDifficulty={setDifficulty} />
 		</>
 	);
 }
