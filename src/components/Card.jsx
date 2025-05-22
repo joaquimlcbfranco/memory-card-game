@@ -1,31 +1,41 @@
 import { useState, useEffect } from "react";
 
 function Card({ id }) {
-	const [card, setCard] = useState({
-		id: id,
-		url: "https://placehold.co/150",
-		clicked: false,
-	});
+	const [pokemon, setPokemon] = useState(null);
 
 	useEffect(() => {
-		const cardDom = document.querySelector("[data-id='0']");
-		const listener = cardDom.addEventListener("click", () =>
-			console.log(card)
-		);
-
-		return () => {
-			cardDom.removeEventListener("click", listener);
+		const getPokemonData = async () => {
+			const pokeId = Math.floor(Math.random() * 900);
+			const response = await fetch(
+				`https://pokeapi.co/api/v2/pokemon/${pokeId}`
+			);
+			const jsonData = await response.json();
+			setPokemon({
+				name: jsonData.name,
+				url: jsonData.sprites.front_default,
+			});
 		};
-	}, [card]);
 
-	return (
-		<div className="card" data-id={card.id}>
-			<div
-				style={{ backgroundImage: card.url }}
-				className="card-front"
-			></div>
-		</div>
-	);
+		getPokemonData();
+	}, []);
+
+  if (!pokemon) {
+    return (<h1>Loading...</h1>)
+  }
+
+	if (pokemon) {
+		return (
+			<div className="card show" data-id={id}>
+				<div
+					className="card-front card-content"
+					style={{
+						backgroundImage: `url(${pokemon.url})`,
+					}}
+				></div>
+				<p className="card-content">{pokemon.name}</p>
+			</div>
+		);
+	}
 }
 
 export default Card;
