@@ -7,7 +7,7 @@ function App() {
 	return (
 		<>
 			<div className="background"></div>
-			<Game difficulty={difficulty} setDifficulty={setDifficulty} />
+			<Game difficulty={difficulty} />
 		</>
 	);
 }
