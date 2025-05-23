@@ -15,17 +15,17 @@
 	justify-items: center;
 	align-items: center;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: repeat(auto-fit, 1fr);
+	grid-template-rows: repeat(auto-fit, 300px);
 	height: 100%;
-	margin: 7em;
 	width: 80%;
 	max-width: 1000px;
+  margin-top: 2em;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 .card {
-	background-image: radial-gradient(circle at 50px 50px, rgba(255, 255, 255), rgba(255, 255, 255, 0.1));
+	background-image: radial-gradient(circle at 50px 50px, rgba(255, 255, 255), rgba(255, 255, 255, 0.2));
 	border-radius: 2em;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 	padding: 0.5em;
@@ -49,12 +49,11 @@
   top: 0;
   left: 0;
   opacity: 0;
-  background-image: radial-gradient(circle at 50px 50px, rgba(255, 255, 255), rgba(0, 0, 0, 0.3));
+  background-image: radial-gradient(circle at 50px 50px, rgba(255, 255, 255), rgba(0, 0, 0, 0.4));
   transition: opacity 500ms ease;
 }
 
 .card:hover::before {
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
   opacity: 1;
 }
 
@@ -85,12 +84,12 @@
 @media (max-width: 600px) {
 	.card-container {
 		grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(auto-fit, 170px);
 		margin: 0;
 		margin-left: auto;
 		margin-right: auto;
 		height: 100%;
 		max-height: 500px;
-		margin-top: auto;
 	}
 
 	.card-front {
