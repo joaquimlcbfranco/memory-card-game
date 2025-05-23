@@ -1,29 +1,100 @@
-import { useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react";
 import Header from "../components/Header.jsx";
 import Card from "../components/Card.jsx";
+import Score from "../components/Score.jsx";
 import "../styles/Game.css";
 
-function Game({ difficulty }) {
+function Game({ difficulty = "easy" }) {
+	const numberOfPokemons =
+		difficulty === "easy" ? 6 : difficulty === "medium" ? 9 : 12;
 	const [cards, setCards] = useState([]);
+  const [score, setScore] = useState(0);
+  const [highscore, setHighscore] = useState(0);
+  const [reset, setReset] = useState(false);
+  const prevScoreRef = useRef(0);
+
+	const handleCardClick = (id) => {
+    console.log(id);
+		setCards(
+			cards.map((card) => {
+				if (card.id === id) {
+          if (card.clicked) {
+            setReset(true);
+            prevScoreRef.current = score;
+            setScore(0);
+            
+          }
+          else {
+            setScore(prevScore => prevScore + 1);
+            return {...card, clicked: true}
+          }
+				}
+				return card;
+			})
+		);
+	};
+
+  useEffect(() => {
+    if (highscore < score) {
+      setHighscore(score);
+    }
+  }, [score])
+
+	useEffect(() => {
+		const controller = new AbortController();
+		const signal = controller.signal;
+
+		const getPokemonData = async () => {
+			const pokeId = Math.floor(Math.random() * 900);
+			try {
+				const response = await fetch(
+					`https://pokeapi.co/api/v2/pokemon/${pokeId}`,
+					{ signal }
+				);
+				const jsonData = await response.json();
+				return jsonData;
+			} catch (error) {
+				throw new Error(error);
+			}
+		};
+
+		for (let i = 0; i < numberOfPokemons; i++) {
+			getPokemonData().then((result) => {
+				setCards((prevCards) => [
+					...prevCards,
+					{
+						id: i,
+						name: result.name,
+						imageUrl: result.sprites.front_default,
+						clicked: false,
+					},
+				]);
+			});
+		}
+
+		return () => {
+			controller.abort();
+		};
+	}, []);
 
 	return (
 		<>
 			<div className="game-container">
 				<Header />
-        <div className="score-container">
-          <h1>Score: 0/9</h1>
-          <h1>High Score: 9</h1>
-        </div>
+				<div className="score-container">
+					<Score score={score} prevScore={prevScoreRef.current} numberOfPokemons={numberOfPokemons} highscore={highscore} reset={reset}/>
+				</div>
 				<div className="card-container">
-					<Card id="0"/>
-					<Card id="1"/>
-					<Card id="2"/>
-					<Card id="3"/>
-					<Card id="4"/>
-					<Card id="5"/>
-					<Card id="6"/>
-					<Card id="7"/>
-          <Card id="8"/>
+					{cards.map((card) => (
+						<Card
+							key={card.id}
+							id={card.id}
+							name={card.name}
+							imageUrl={card.imageUrl}
+              handleCardClick={handleCardClick}
+              reset={reset}
+						/>
+					))}
 				</div>
 			</div>
 		</>
