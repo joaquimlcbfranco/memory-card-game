@@ -2,43 +2,44 @@ import { useRef, useState, useEffect } from "react";
 import Header from "../components/Header.jsx";
 import Card from "../components/Card.jsx";
 import Score from "../components/Score.jsx";
+import PlayAgain from "../components/PlayAgain.jsx";
 import "../styles/Game.css";
 
 function Game({ difficulty = "easy" }) {
 	const numberOfPokemons =
 		difficulty === "easy" ? 6 : difficulty === "medium" ? 9 : 12;
 	const [cards, setCards] = useState([]);
-  const [score, setScore] = useState(0);
-  const [highscore, setHighscore] = useState(0);
-  const [reset, setReset] = useState(false);
-  const prevScoreRef = useRef(0);
+	const [score, setScore] = useState(0);
+	const [highscore, setHighscore] = useState(0);
+	const [reset, setReset] = useState(false);
+	const prevScoreRef = useRef(0);
 
 	const handleCardClick = (id) => {
-    console.log(id);
 		setCards(
 			cards.map((card) => {
 				if (card.id === id) {
-          if (card.clicked) {
-            setReset(true);
-            prevScoreRef.current = score;
+					if (card.clicked) {
+						setReset(true);
+						prevScoreRef.current = score;
             setScore(0);
-            
-          }
-          else {
-            setScore(prevScore => prevScore + 1);
-            return {...card, clicked: true}
-          }
+					} else {
+						setScore((prevScore) => prevScore + 1);
+						return { ...card, clicked: true };
+					}
 				}
 				return card;
 			})
 		);
 	};
 
-  useEffect(() => {
-    if (highscore < score) {
-      setHighscore(score);
+	useEffect(() => {
+		if (highscore < score) {
+			setHighscore(score);
+		}
+    if (score === numberOfPokemons) {
+      setReset(true);
     }
-  }, [score])
+	}, [score]);
 
 	useEffect(() => {
 		const controller = new AbortController();
@@ -82,7 +83,11 @@ function Game({ difficulty = "easy" }) {
 			<div className="game-container">
 				<Header />
 				<div className="score-container">
-					<Score score={score} prevScore={prevScoreRef.current} numberOfPokemons={numberOfPokemons} highscore={highscore} reset={reset}/>
+					<Score
+						score={score}
+						numberOfPokemons={numberOfPokemons}
+						highscore={highscore}
+					/>
 				</div>
 				<div className="card-container">
 					{cards.map((card) => (
@@ -91,11 +96,14 @@ function Game({ difficulty = "easy" }) {
 							id={card.id}
 							name={card.name}
 							imageUrl={card.imageUrl}
-              handleCardClick={handleCardClick}
-              reset={reset}
+							handleCardClick={handleCardClick}
+							reset={reset}
 						/>
 					))}
 				</div>
+        {reset && <div className="play-again">
+          <PlayAgain prevScore={prevScoreRef.current} score={score} numberOfPokemons={numberOfPokemons}/>
+        </div>}
 			</div>
 		</>
 	);
