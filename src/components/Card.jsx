@@ -1,11 +1,19 @@
 function Card({ id, name, imageUrl, handleCardClick, reset }) {
-  if (!name) {
-    return (<h1>Loading...</h1>)
-  }
+	if (!name) {
+		return <h1>Loading...</h1>;
+	}
 
 	if (name) {
 		return (
-			<div className="card show" data-id={id} onClick={() => handleCardClick(id)}>
+			<div
+				className="card show"
+				data-id={id}
+				onClick={() => {
+					if (reset === false) {
+						handleCardClick(id);
+					}
+				}}
+			>
 				<div
 					className="card-front card-content"
 					style={{
