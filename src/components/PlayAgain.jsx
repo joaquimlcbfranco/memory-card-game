@@ -1,4 +1,4 @@
-function PlayAgain({ prevScore, score, numberOfPokemons }) {
+function PlayAgain({ prevScore, score, numberOfPokemons, handlePlayAgain }) {
 	if (score === numberOfPokemons) {
 		return (
 			<>
@@ -6,7 +6,7 @@ function PlayAgain({ prevScore, score, numberOfPokemons }) {
 					<span className="victory">You've won!</span> You clicked 'em
 					all!
 				</h1>
-				<button className="play-again-button">Play Again</button>
+				<button className="play-again-button play-again-button-rect play-again-button-green" onClick={handlePlayAgain}>Play Again</button>
 			</>
 		);
 	}
@@ -15,7 +15,7 @@ function PlayAgain({ prevScore, score, numberOfPokemons }) {
 			<h1>
 				<span className="loss">You've lost!</span> Your score was {prevScore}.
 			</h1>
-			<button className="play-again-button">Play Again</button>
+			<button className="play-again-button play-again-button-rect play-again-button-red" onClick={handlePlayAgain}>Play Again</button>
 		</>
 	);
 }
