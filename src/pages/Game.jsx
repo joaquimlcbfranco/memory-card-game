@@ -21,7 +21,7 @@ function Game({ difficulty = "easy" }) {
 					if (card.clicked) {
 						setReset(true);
 						prevScoreRef.current = score;
-            setScore(0);
+						setScore(0);
 					} else {
 						setScore((prevScore) => prevScore + 1);
 						return { ...card, clicked: true };
@@ -32,15 +32,42 @@ function Game({ difficulty = "easy" }) {
 		);
 	};
 
+	const handlePlayAgain = () => {
+		setScore(0);
+		setReset(false);
+		prevScoreRef.current = score;
+		setCards(
+			cards.map((card) => {
+				return { ...card, clicked: false };
+			})
+		);
+	};
+
+	// Switch card places whenever the score changes/user clicks
+	useEffect(() => {
+		const copy = [...cards];
+
+		for (let i = copy.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			const temp = copy[i];
+			copy[i] = copy[j];
+			copy[j] = temp;
+		}
+
+		setCards(copy);
+	}, [score]);
+
+	// useEffect to change highscore and reset game based on the score value
 	useEffect(() => {
 		if (highscore < score) {
 			setHighscore(score);
 		}
-    if (score === numberOfPokemons) {
-      setReset(true);
-    }
+		if (score === numberOfPokemons) {
+			setReset(true);
+		}
 	}, [score]);
 
+	// Fetches pokemon data on first mount
 	useEffect(() => {
 		const controller = new AbortController();
 		const signal = controller.signal;
@@ -101,9 +128,16 @@ function Game({ difficulty = "easy" }) {
 						/>
 					))}
 				</div>
-        {reset && <div className="play-again">
-          <PlayAgain prevScore={prevScoreRef.current} score={score} numberOfPokemons={numberOfPokemons}/>
-        </div>}
+				{reset && (
+					<div className="play-again">
+						<PlayAgain
+							prevScore={prevScoreRef.current}
+							score={score}
+							numberOfPokemons={numberOfPokemons}
+							handlePlayAgain={handlePlayAgain}
+						/>
+					</div>
+				)}
 			</div>
 		</>
 	);
