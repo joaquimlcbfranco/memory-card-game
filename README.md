@@ -1,5 +1,5 @@
 # Memory Card Game
-A simple game where you can't press the same pokemon more than once.
+A simple game where you can't press the same pokemon more than once.<br>
 Future improvement:
 - Add three different difficulty levels
 
